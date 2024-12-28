@@ -1,6 +1,7 @@
 package com.incubyte.base;
 
 import com.incubyte.utils.ConfigReader;
+import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +25,11 @@ public class TestBase {
 
     public static WebDriver getDriver() {
         return driverThreadLocal.get();
+    }
+
+    @Before
+    public void init(){
+        initializeDriver(ConfigReader.getBrowser());
     }
 
     /**
