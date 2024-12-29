@@ -1,15 +1,12 @@
 package com.incubyte.stepdefination;
 
+import com.incubyte.base.TestBase;
 import io.cucumber.java.en.Given;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Stepdefs {
 
-    @Given("I execute class {string} and method {string}")
-    public void iExecuteClassAndMethod(String arg0, String arg1) {
-    }
 
     @Given("user executes method {string} from page {string}")
     public void userExecutesMethodFromPage(String methodName, String className) throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {

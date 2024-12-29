@@ -2,8 +2,13 @@ package com.incubyte.base;
 
 import com.incubyte.utils.ConfigReader;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Collection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -22,14 +27,30 @@ public class TestBase {
 
     // ThreadLocal ensures each thread (test) gets its own WebDriver
     private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    public static String tagName;
+
+    public TestBase() throws IOException {
+    }
 
     public static WebDriver getDriver() {
         return driverThreadLocal.get();
     }
 
     @Before
-    public void init(){
+    public void init() throws IOException {
         initializeDriver(ConfigReader.getBrowser());
+    }
+
+    @Before
+    public void beforeScenario(Scenario scenario) {
+        // Retrieve all tags associated with the current scenario
+        Collection<String> tags = scenario.getSourceTagNames();
+
+        // Iterate through the tags and perform desired operations
+        for (String tag : tags) {
+            System.out.println("Scenario Tag: " + tag);
+            tagName = tag.replace("@","");
+        }
     }
 
     /**
