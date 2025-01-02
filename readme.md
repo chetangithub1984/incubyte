@@ -6,7 +6,7 @@ The Incubyte Test Automation Framework is a robust Selenium-based automation fra
 ---
 
 ## Features
-- **Centralized Configuration**: File paths and sheet names are centralized for better maintainability.
+- **Centralized Configuration**: we have config.properties file for better maintainability.
 - **Modular Design**: Follows the Page Object Model (POM) structure for better code reusability.
 - **Test Data Management**: Integrated Excel utilities for dynamic test data updates.
 - **Dynamic Data Generators**: Includes utilities for generating random names, emails, and passwords.
