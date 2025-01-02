@@ -50,7 +50,7 @@ Incubyte/
 1. **Java Development Kit (JDK):** Version 8 or higher.
 2. **Maven:** Ensure Maven is installed and configured in your environment.
 3. **IDE:** Use IntelliJ IDEA, Eclipse, or any preferred IDE.
-4. **Browser Drivers:** Ensure the required WebDriver executables (e.g., ChromeDriver) are available in your PATH.
+4. **Browser Drivers:** used drivermanager so no need to maintain drivers for different browsers
 
 ### Steps to Set Up
 1. Clone the repository:
