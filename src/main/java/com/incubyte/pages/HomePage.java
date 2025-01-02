@@ -3,6 +3,7 @@ package com.incubyte.pages;
 import com.incubyte.utils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import static com.incubyte.base.TestBase.getDriver;
 
 public class HomePage {

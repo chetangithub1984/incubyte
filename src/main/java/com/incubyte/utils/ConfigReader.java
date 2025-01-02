@@ -6,9 +6,9 @@ import java.util.Properties;
 
 public class ConfigReader {
 
-    private static Properties properties;
     // Update this path to match the location of your config.properties file
     private static final String PROPERTY_FILE_PATH = "src/test/resources/config.properties";
+    private static final Properties properties;
 
     static {
         try (FileInputStream fileInputStream = new FileInputStream(PROPERTY_FILE_PATH)) {

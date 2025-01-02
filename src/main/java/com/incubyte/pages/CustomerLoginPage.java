@@ -19,8 +19,8 @@ public class CustomerLoginPage {
         String filePath = "src/test/java/com/incubyte/testData/TestData.xlsx";
         String sheetName = "CreateNewCustomerAccount";
         ExcelUtility excelUtility = new ExcelUtility(filePath, sheetName);
-        driver.findElement(email).sendKeys(excelUtility.readDataByTagName(TestBase.tagName,"Email"));
-        driver.findElement(password).sendKeys(excelUtility.readDataByTagName(TestBase.tagName,"Password"));
+        driver.findElement(email).sendKeys(excelUtility.readDataByTagName(TestBase.tagName, "Email"));
+        driver.findElement(password).sendKeys(excelUtility.readDataByTagName(TestBase.tagName, "Password"));
         driver.findElement(signInButton).click();
     }
 }

@@ -3,16 +3,19 @@ package com.incubyte.utils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Utility class for performing Excel file operations such as reading and updating data based on tags.
  */
 public class ExcelUtility {
 
-    private String excelFilePath;
-    private Workbook workbook;
-    private Sheet sheet;
+    private final String excelFilePath;
+    private final Workbook workbook;
+    private final Sheet sheet;
 
     /**
      * Constructor to initialize the Excel file and sheet.
@@ -35,6 +38,43 @@ public class ExcelUtility {
             if (fis != null) {
                 fis.close();
             }
+        }
+    }
+
+    /**
+     * Example usage of the ExcelUtility class.
+     */
+    public static void main(String[] args) {
+        String filePath = "path/to/your/excel-file.xlsx";
+        String sheetName = "Sheet1"; // Replace with your sheet name
+
+        try {
+            ExcelUtility excelUtility = new ExcelUtility(filePath, sheetName);
+
+            // Example: Read data
+            String tagName = "@TC01";
+            String columnName = "Status"; // Replace with your column name
+            String status = excelUtility.readDataByTagName(tagName, columnName);
+            System.out.println("Current Status for " + tagName + ": " + status);
+
+            // Example: Update data
+            String newStatus = "Passed";
+            excelUtility.updateDataByTagName(tagName, columnName, newStatus);
+            System.out.println("Updated Status for " + tagName + " to: " + newStatus);
+
+            // Verify the update
+            String updatedStatus = excelUtility.readDataByTagName(tagName, columnName);
+            System.out.println("Verified Updated Status for " + tagName + ": " + updatedStatus);
+
+            // Close the utility to free resources
+            excelUtility.close();
+
+        } catch (IOException e) {
+            System.err.println("Error accessing the Excel file: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.err.println("Error processing Excel data: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -243,43 +283,6 @@ public class ExcelUtility {
     public void close() throws IOException {
         if (workbook != null) {
             workbook.close();
-        }
-    }
-
-    /**
-     * Example usage of the ExcelUtility class.
-     */
-    public static void main(String[] args) {
-        String filePath = "path/to/your/excel-file.xlsx";
-        String sheetName = "Sheet1"; // Replace with your sheet name
-
-        try {
-            ExcelUtility excelUtility = new ExcelUtility(filePath, sheetName);
-
-            // Example: Read data
-            String tagName = "@TC01";
-            String columnName = "Status"; // Replace with your column name
-            String status = excelUtility.readDataByTagName(tagName, columnName);
-            System.out.println("Current Status for " + tagName + ": " + status);
-
-            // Example: Update data
-            String newStatus = "Passed";
-            excelUtility.updateDataByTagName(tagName, columnName, newStatus);
-            System.out.println("Updated Status for " + tagName + " to: " + newStatus);
-
-            // Verify the update
-            String updatedStatus = excelUtility.readDataByTagName(tagName, columnName);
-            System.out.println("Verified Updated Status for " + tagName + ": " + updatedStatus);
-
-            // Close the utility to free resources
-            excelUtility.close();
-
-        } catch (IOException e) {
-            System.err.println("Error accessing the Excel file: " + e.getMessage());
-            e.printStackTrace();
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("Error processing Excel data: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

@@ -1,4 +1,5 @@
 package com.incubyte.utils;
+
 import java.util.Random;
 
 public class NameGenerator {
@@ -82,12 +83,12 @@ public class NameGenerator {
         NameGenerator generator = new NameGenerator();
 
         // Generate a single random full name
-        String randomName = generator.getRandomFullName();
+        String randomName = getRandomFullName();
         System.out.println("Random Full Name: " + randomName);
 
         // Generate multiple random full names
         int numberOfNames = 10;
-        String[] randomNames = generator.getRandomFullNames(numberOfNames);
+        String[] randomNames = getRandomFullNames(numberOfNames);
         System.out.println("\nList of Random Full Names:");
         for (String name : randomNames) {
             System.out.println(name);

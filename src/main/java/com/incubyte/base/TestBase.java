@@ -4,11 +4,6 @@ import com.incubyte.utils.ConfigReader;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Collection;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -16,41 +11,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-public class TestBase {
+import java.time.Duration;
+import java.util.Collection;
 
- /*   public static void main(String[] args) {
-        initializeDriver("firefox");
-        quitDriver();
-    }*/
+public class TestBase {
 
     private static final Logger logger = LogManager.getLogger(TestBase.class);
 
     // ThreadLocal ensures each thread (test) gets its own WebDriver
-    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
     public static String tagName;
-
-    public TestBase() throws IOException {
-    }
 
     public static WebDriver getDriver() {
         return driverThreadLocal.get();
-    }
-
-    @Before
-    public void init() throws IOException {
-        initializeDriver(ConfigReader.getBrowser());
-    }
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        // Retrieve all tags associated with the current scenario
-        Collection<String> tags = scenario.getSourceTagNames();
-
-        // Iterate through the tags and perform desired operations
-        for (String tag : tags) {
-            System.out.println("Scenario Tag: " + tag);
-            tagName = tag.replace("@","");
-        }
     }
 
     /**
@@ -62,7 +35,7 @@ public class TestBase {
                 browser = ConfigReader.getBrowser();
             }
 
-            WebDriver driver = null;
+            WebDriver driver;
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
@@ -115,6 +88,23 @@ public class TestBase {
             } finally {
                 driverThreadLocal.remove();
             }
+        }
+    }
+
+    @Before
+    public void init() {
+        initializeDriver(ConfigReader.getBrowser());
+    }
+
+    @Before
+    public void beforeScenario(Scenario scenario) {
+        // Retrieve all tags associated with the current scenario
+        Collection<String> tags = scenario.getSourceTagNames();
+
+        // Iterate through the tags and perform desired operations
+        for (String tag : tags) {
+            System.out.println("Scenario Tag: " + tag);
+            tagName = tag.replace("@", "");
         }
     }
 }
