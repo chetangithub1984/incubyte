@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/com/incubyte/features",        // Path to your feature files
         glue = "com.incubyte",            // Step definitions package
+        tags = "@TC01",
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports.html",

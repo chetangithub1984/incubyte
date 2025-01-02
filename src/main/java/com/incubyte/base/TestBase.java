@@ -1,6 +1,7 @@
 package com.incubyte.base;
 
 import com.incubyte.utils.ConfigReader;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -106,5 +107,10 @@ public class TestBase {
             System.out.println("Scenario Tag: " + tag);
             tagName = tag.replace("@", "");
         }
+    }
+
+    @After
+    public void tear(){
+        quitDriver();
     }
 }
